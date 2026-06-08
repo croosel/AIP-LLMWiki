@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LILIS AIP Integration Dashboard — Sense → Reason → Act</title>
+<style>
+:root {
+  --bg: #0b0d14;
+  --card-bg: #141822;
+  --border: #1f2330;
+  --text: #e4e6ed;
+  --text-dim: #7e8299;
+  --text-muted: #565b73;
+  --accent: #5b8af7;
+  --accent-soft: rgba(91,138,247,0.1);
+  --red: #f54a6e;
+  --red-soft: rgba(245,74,110,0.1);
+  --orange: #ff9f43;
+  --orange-soft: rgba(255,159,67,0.1);
+  --yellow: #ffc048;
+  --yellow-soft: rgba(255,192,72,0.1);
+  --green: #34d399;
+  --green-soft: rgba(52,211,153,0.1);
+  --cyan: #22d3ee;
+  --cyan-soft: rgba(34,211,238,0.1);
+  --purple: #a78bfa;
+  --purple-soft: rgba(167,139,250,0.1);
+  --sense: #22d3ee;
+  --reason: #a78bfa;
+  --act: #34d399;
+  --sense-soft: rgba(34,211,238,0.08);
+  --reason-soft: rgba(167,139,250,0.08);
+  --act-soft: rgba(52,211,153,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg); color: var(--text); line-height:1.6; padding:24px;
+}
+.container{max-width:1500px; margin:0 auto;}
+h1{font-size:26px; background:linear-gradient(135deg,var(--sense),var(--reason),var(--act)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;}
+.sub{font-size:13px; color:var(--text-dim); margin-bottom:24px;}
+
+/* Grid */
+.r{display:grid; gap:16px; margin-bottom:16px;}
+.r2{grid-template-columns:repeat(auto-fit,minmax(500px,1fr));}
+.r3{grid-template-columns:repeat(auto-fit,minmax(340px,1fr));}
+.r4{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.rc{grid-template-columns:1fr 1fr 1fr;}
+@media(max-width:900px){.rc{grid-template-columns:1fr;}}
+
+/* Card */
+.card{
+  background:var(--card-bg); border:1px solid var(--border); border-radius:14px;
+  padding:22px; position:relative; overflow:hidden;
+}
+.card::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+}
+.card.sense::before{background:linear-gradient(90deg,var(--sense),transparent);}
+.card.reason::before{background:linear-gradient(90deg,var(--reason),transparent);}
+.card.act::before{background:linear-gradient(90deg,var(--act),transparent);}
+
+.card h2{font-size:15px; margin-bottom:16px; display:flex; align-items:center; gap:8px; font-weight:600;}
+.card h2 .dot{width:8px; height:8px; border-radius:50%; flex-shrink:0;}
+.card h2 .badge{font-size:10px; padding:2px 10px; border-radius:10px; font-weight:500;}
+
+/* Badges */
+.b-sense{background:var(--sense-soft); color:var(--sense);}
+.b-reason{background:var(--reason-soft); color:var(--reason);}
+.b-act{background:var(--act-soft); color:var(--act);}
+.b-red{background:var(--red-soft); color:var(--red);}
+.b-green{background:var(--green-soft); color:var(--green);}
+.b-orange{background:var(--orange-soft); color:var(--orange);}
+
+/* Hero metrics */
+.hero{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:20px;}
+.hm{
+  background:var(--card-bg); border:1px solid var(--border); border-radius:12px;
+  padding:16px; text-align:center;
+}
+.hm .v{font-size:28px; font-weight:800; line-height:1.1;}
+.hm .l{font-size:11px; color:var(--text-dim); margin-top:4px;}
+.hm .m{font-size:10px; color:var(--text-muted); margin-top:2px;}
+.v-red{color:var(--red);}
+.v-green{color:var(--green);}
+.v-yellow{color:var(--yellow);}
+.v-orange{color:var(--orange);}
+.v-cyan{color:var(--cyan);}
+.v-purple{color:var(--purple);}
+
+/* Gauge */
+.gauge-wrap{display:flex; align-items:center; gap:20px; flex-wrap:wrap;}
+.gauge{
+  width:130px; height:130px; border-radius:50%;
+  background:conic-gradient(var(--red) 0deg 90deg, var(--orange) 90deg 180deg, var(--yellow) 180deg 270deg, var(--green) 270deg 360deg);
+  position:relative; flex-shrink:0;
+}
+.gauge::after{
+  content:''; position:absolute; inset:14px; border-radius:50%; background:var(--card-bg);
+}
+.gauge .score{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  z-index:1; font-size:32px; font-weight:900; color:var(--red);
+}
+.gauge-info{flex:1;}
+
+/* Dim bar */
+.dim-bar{margin:8px 0;}
+.dim-bar .row{display:flex; justify-content:space-between; align-items:center; font-size:12px;}
+.dim-bar .row .n{font-weight:600;}
+.dim-bar .row .s{color:var(--text-dim); font-size:11px;}
+.dim-bar .track{width:100%; height:6px; background:rgba(255,255,255,0.06); border-radius:3px; margin-top:4px; overflow:hidden;}
+.dim-bar .fill{height:100%; border-radius:3px; transition:width 0.6s;}
+
+.fill-red{background:var(--red);}
+.fill-orange{background:var(--orange);}
+.fill-yellow{background:var(--yellow);}
+.fill-green{background:var(--green);}
+.fill-purple{background:var(--purple);}
+
+/* Status dot */
+.stat-dot{width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:6px; flex-shrink:0;}
+.sd-red{background:var(--red);}
+.sd-green{background:var(--green);}
+.sd-yellow{background:var(--yellow);}
+.sd-orange{background:var(--orange);}
+
+/* Func card */
+.func-card{
+  border-left:3px solid transparent; padding:12px 16px; margin-bottom:10px;
+  background:rgba(255,255,255,0.015); border-radius:0 8px 8px 0;
+}
+.func-card.fc-green{border-left-color:var(--green);}
+.func-card.fc-yellow{border-left-color:var(--yellow);}
+.func-card.fc-red{border-left-color:var(--red);}
+.func-card .fn{font-size:13px; font-weight:600; margin-bottom:4px;}
+.func-card .out{font-size:11px; color:var(--text-dim); line-height:1.7;}
+.func-card .tag-row{margin-top:6px; display:flex; gap:6px; flex-wrap:wrap;}
+.func-card .tag{font-size:10px; padding:2px 8px; border-radius:4px;}
+
+/* Alert box */
+.alert{padding:10px 14px; border-radius:8px; font-size:12px; margin-top:4px;}
+.alert-red{background:var(--red-soft); border-left:3px solid var(--red);}
+.alert-yellow{background:var(--yellow-soft); border-left:3px solid var(--yellow);}
+.alert-green{background:var(--green-soft); border-left:3px solid var(--green);}
+.alert-info{background:var(--accent-soft); border-left:3px solid var(--accent);}
+
+/* Data table */
+.dt{width:100%; border-collapse:collapse; font-size:12px;}
+.dt th{text-align:left; color:var(--text-dim); font-weight:500; padding:8px 10px; border-bottom:1px solid var(--border); font-size:11px;}
+.dt td{padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.03);}
+.dt tr:hover td{background:rgba(255,255,255,0.015);}
+.dt .align-r{text-align:right;}
+
+/* Archive layers */
+.arch-layer{
+  border-left:3px solid transparent; padding:16px 20px; border-radius:10px;
+  background:rgba(255,255,255,0.015); margin:10px 0;
+}
+.arch-layer.sense{border-left-color:var(--sense); background:var(--sense-soft);}
+.arch-layer.reason{border-left-color:var(--reason); background:var(--reason-soft);}
+.arch-layer.act{border-left-color:var(--act); background:var(--act-soft);}
+.arch-layer h3{font-size:14px; margin-bottom:6px;}
+.arch-layer p{font-size:12px; color:var(--text-dim);}
+
+/* Timelines */
+.tl{position:relative; padding-left:24px; margin-top:12px;}
+.tl::before{content:''; position:absolute; left:6px; top:0; bottom:0; width:2px; background:var(--border);}
+.tl-i{position:relative; margin-bottom:14px;}
+.tl-i::before{content:''; position:absolute; left:-18px; top:6px; width:10px; height:10px; border-radius:50%;}
+.tl-i.p0::before{background:var(--red);}
+.tl-i.p1::before{background:var(--orange);}
+.tl-i.p2::before{background:var(--accent);}
+.tl-i h4{font-size:12px; font-weight:600; margin-bottom:2px;}
+.tl-i .d{font-size:11px; color:var(--text-dim);}
+
+/* Ethics grid */
+.ethics-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px;}
+.ei{display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:8px; font-size:12px; background:rgba(255,255,255,0.02);}
+.ei .num{font-size:18px; font-weight:800; color:var(--text-dim); min-width:24px;}
+
+/* Forecast bar */
+.fbar{display:flex; align-items:center; gap:10px; font-size:12px; margin:6px 0;}
+.fbar .lab{min-width:50px; color:var(--text-dim);}
+.fbar .track{flex:1; height:8px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden;}
+.fbar .now{height:100%; border-radius:4px; background:var(--accent); position:relative; display:flex; align-items:center; padding-left:6px; font-size:10px; color:var(--text);}
+.fbar .delta{min-width:80px; text-align:right;}
+
+/* Snapshot */
+.snap{display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:8px;}
+.sn{text-align:center; padding:12px 8px; background:rgba(255,255,255,0.02); border-radius:8px;}
+.sn .val{font-size:18px; font-weight:700;}
+.sn .lbl{font-size:10px; color:var(--text-dim); margin-top:2px;}
+
+/* Footer */
+.ft{text-align:center; padding:20px; color:var(--text-muted); font-size:11px;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<h1>ONTOLOGY AIP × LILIS Alibaba 国际站</h1>
+<p class="sub">LILIS 婚庆派对用品 &nbsp;|&nbsp; Sense → Reason → Act 完整集成 &nbsp;|&nbsp; 数据快照: 2026-05-18 &nbsp;|&nbsp; AI 健康分: <strong style="color:var(--red);">25 / 100</strong></p>
+
+<!-- Top hero metrics -->
+<div class="hero">
+  <div class="hm"><div class="v v-red">25</div><div class="l">AI 健康分 /100</div><div class="m">产品 0 + 流量 5 + 转化 10 + 服务 10</div></div>
+  <div class="hm"><div class="v v-cyan">2,901</div><div class="l">周曝光</div><div class="m">vs 同行 12,500 (23.2%)</div></div>
+  <div class="hm"><div class="v v-purple">13</div><div class="l">周询盘</div><div class="m">vs 同行 40 (32.5%)</div></div>
+  <div class="hm"><div class="v v-yellow">355</div><div class="l">总产品</div><div class="m">优品 23 (6.5%) · 爆品 0</div></div>
+  <div class="hm"><div class="v v-green">31.4%</div><div class="l">复购率</div><div class="m">产品受认可</div></div>
+  <div class="hm"><div class="v v-orange">0%</div><div class="l">橱窗优品占比</div><div class="m">23优品未入橱窗</div></div>
+  <div class="hm"><div class="v v-red">0</div><div class="l">星等级</div><div class="m">四维均零</div></div>
+  <div class="hm"><div class="v v-orange">50.4%</div><div class="l">5分钟回复率</div><div class="m">目标 ≥ 70%</div></div>
+</div>
+
+<!-- ===== ARCHITECTURE OVERVIEW ===== -->
+<div class="card">
+<h2><span class="dot" style="background:var(--purple);"></span>AIP 三层架构：Sense → Reason → Act <span class="badge b-reason">总览</span></h2>
+<div class="r r3">
+  <div class="arch-layer sense">
+    <h3 style="color:var(--sense);">🔵 SENSE 感知层</h3>
+    <p>Alibaba diagnoseData API → 周报 JSON → Ontology 填充<br>7 张表 · 60+ 字段 · 每周自动拉取</p>
+  </div>
+  <div class="arch-layer reason">
+    <h3 style="color:var(--reason);">🟣 REASON 推理层</h3>
+    <p>5 个 Logic Functions · 4 个 Evals Suite · 8 主题 Ethics Filter<br>全部基于真实 Store 数据运行</p>
+  </div>
+  <div class="arch-layer act">
+    <h3 style="color:var(--act);">🟢 ACT 行动层</h3>
+    <p>橱窗操作 · P4P 出价 · 详情页优化 · 回复提醒 · 周度仪表盘<br>P0 → P1 → P2 三阶段执行</p>
+  </div>
+</div>
+</div>
+
+<!-- ===== SENSE: Real Data ===== -->
+<div class="card sense">
+<h2><span class="dot" style="background:var(--sense);"></span>SENSE — 真实数据输入 <span class="badge b-sense">2026-05-18 快照</span></h2>
+<div class="snap" style="margin-bottom:16px;">
+  <div class="sn"><div class="val v-cyan">2,901</div><div class="lbl">曝光/周</div></div>
+  <div class="sn"><div class="val" style="color:var(--text);">63</div><div class="lbl">点击/周</div></div>
+  <div class="sn"><div class="val v-purple">13</div><div class="lbl">询盘/周</div></div>
+  <div class="sn"><div class="val v-red">0</div><div class="lbl">本周订单</div></div>
+  <div class="sn"><div class="val v-yellow">355</div><div class="lbl">产品总数</div></div>
+  <div class="sn"><div class="val v-green">23</div><div class="lbl">优品(6.5%)</div></div>
+  <div class="sn"><div class="val v-red">0</div><div class="lbl">爆品</div></div>
+  <div class="sn"><div class="val v-orange">0%</div><div class="lbl">橱窗优品占比</div></div>
+  <div class="sn"><div class="val v-red">0★</div><div class="lbl">星等级</div></div>
+  <div class="sn"><div class="val v-orange">50.4%</div><div class="lbl">回复率</div></div>
+  <div class="sn"><div class="val v-green">31.4%</div><div class="lbl">复购率</div></div>
+  <div class="sn"><div class="val v-cyan">39+1</div><div class="lbl">5/13 UV峰值+订单</div></div>
+</div>
+<div style="font-size:11px; color:var(--text-dim); border-top:1px solid var(--border); padding-top:10px;">
+  数据管道: Alibaba CRM API → POST diagnoseData.json + POST queryWeekReportAllData → 10模块全量 → 7张表
+</div>
+</div>
+
+<!-- ===== REASON: Logic Functions ===== -->
+<div class="r r3">
+
+<!-- F1: HealthScore -->
+<div class="card reason">
+<h2><span class="dot" style="background:var(--reason);"></span>F1: StoreHealthScore <span class="badge b-red">25/100</span></h2>
+<div class="gauge-wrap" style="margin-bottom:10px;">
+  <div class="gauge"><div class="score">25</div></div>
+  <div class="gauge-info">
+    <div class="dim-bar"><div class="row"><span class="n">产品力</span><span class="s">0/25 · 优品 6.5%</span></div><div class="track"><div class="fill fill-red" style="width:0%;"></div></div></div>
+    <div class="dim-bar"><div class="row"><span class="n">流量力</span><span class="s">5/25 · 曝光 23% of 同行</span></div><div class="track"><div class="fill fill-orange" style="width:20%;"></div></div></div>
+    <div class="dim-bar"><div class="row"><span class="n">转化力</span><span class="s">10/25 · 询盘率 4.5%</span></div><div class="track"><div class="fill fill-yellow" style="width:40%;"></div></div></div>
+    <div class="dim-bar"><div class="row"><span class="n">服务力</span><span class="s">10/25 · 回复率 50.4%</span></div><div class="track"><div class="fill fill-yellow" style="width:40%;"></div></div></div>
+  </div>
+</div>
+<div class="alert alert-red">优品占比 6.5% — 严重不足，自然流量近乎为零</div>
+<div class="alert alert-red">橱窗优品占比 0% — 23 个优品未入橱窗</div>
+<div class="alert alert-yellow">5 分钟回复率 50.44% — 需提升至 70%+</div>
+<div class="alert alert-info">复购率 31.4% — 产品受认可，问题在获客端</div>
+</div>
+
+<!-- F2: ListingQualityAuditor -->
+<div class="card reason">
+<h2><span class="dot" style="background:var(--purple);"></span>F2: ListingQualityAuditor <span class="badge b-orange">TOP3 诊断</span></h2>
+<div class="func-card fc-red">
+  <div class="fn">#1 Spandex Arch Cover</div>
+  <div class="out">曝光 95 · 询盘 0 · 无品牌 · 无视频 · 类别偏离主营</div>
+  <div class="tag-row"><span class="tag b-red">加品牌标识</span><span class="tag b-orange">验证128字符</span><span class="tag b-red">加视频</span></div>
+</div>
+<div class="func-card fc-yellow">
+  <div class="fn">#4 Peony Flower Head 20cm</div>
+  <div class="out">曝光 52 · 橱窗✅ · 品牌✅ · 但询盘率 0%</div>
+  <div class="tag-row"><span class="tag b-orange">详情页婚礼场景图</span><span class="tag b-green">搭配推荐</span></div>
+</div>
+<div class="func-card fc-green">
+  <div class="fn">#5 Peony Small 7-Fork ⭐</div>
+  <div class="out">曝光 49 · 询盘 1 · 询盘率 2.04% · 唯一有信号</div>
+  <div class="tag-row"><span class="tag b-red">立刻加品牌</span><span class="tag b-red">立刻入橱窗</span><span class="tag b-green">改主图</span><span class="tag b-green">P4P单开</span></div>
+</div>
+<div class="alert alert-info" style="margin-top:6px; font-size:11px;">
+  这是唯一有信号的产品，优先投入资源优化 — 改场景化主图 + 降价5%冲信保 + P4P单开计划
+</div>
+</div>
+
+<!-- F3: SeasonalDemandForecast -->
+<div class="card reason">
+<h2><span class="dot" style="background:var(--yellow);"></span>F3: SeasonalDemandForecast <span class="badge b-orange">六月旺季</span></h2>
+<div style="margin-bottom:12px;">
+  <div class="snap">
+    <div class="sn"><div class="val" style="color:var(--yellow);font-size:16px;">×1.4</div><div class="lbl">5-10月 婚礼旺季</div></div>
+    <div class="sn"><div class="val" style="color:var(--orange);font-size:16px;">×1.5</div><div class="lbl">11-12月 节日季</div></div>
+    <div class="sn"><div class="val" style="color:var(--text-dim);font-size:16px;">×0.7</div><div class="lbl">1-2月 淡季</div></div>
+    <div class="sn"><div class="val" style="color:var(--text-dim);font-size:16px;">×1.0</div><div class="lbl">3-4月 春季</div></div>
+  </div>
+</div>
+<div class="fbar"><span class="lab">曝光</span><div class="track"><div class="now" style="width:25%;">2,901</div></div><span class="delta" style="color:var(--green);">+75% → 5,077</span></div>
+<div class="fbar"><span class="lab">询盘</span><div class="track"><div class="now" style="width:18%;">13</div></div><span class="delta" style="color:var(--green);">+85% → 24</span></div>
+<div class="fbar"><span class="lab">营收</span><div class="track"><div class="now" style="width:18%;"><span style="font-size:9px;">$164</span></div></div><span class="delta" style="color:var(--green);">→ $380/周</span></div>
+<div class="alert alert-info" style="margin-top:10px; font-size:11px;">
+  <strong>P4P 建议:</strong> June $25/天 (花/拱门/布艺) · July $25/天
+</div>
+</div>
+
+<!-- F4: CrossSellBundleGenerator -->
+<div class="card reason">
+<h2><span class="dot" style="background:var(--green);"></span>F4: CrossSellBundleGenerator <span class="badge b-green">3 Bundles</span></h2>
+<div class="func-card fc-green">
+  <div class="fn">Bundle 1: Wedding Ceremony Starter Kit</div>
+  <div class="out">$69.99 · Silk Peony ×50 + Arch Stand ×1 + LED Light ×2 + Chair Sashes ×50</div>
+  <div class="tag-row"><span class="tag b-green">利润 ~$35</span></div>
+</div>
+<div class="func-card fc-yellow">
+  <div class="fn">Bundle 2: Birthday Party Balloon Bonanza</div>
+  <div class="out">$29.99 · Foil Set ×3 + Arch Kit ×1 + LED Letter ×1</div>
+  <div class="tag-row"><span class="tag b-green">利润 ~$15</span></div>
+</div>
+<div class="func-card fc-green">
+  <div class="fn">Bundle 3: Hotel Lobby Flower Wall Kit</div>
+  <div class="out">$149.99 · Flower Wall Panel ×4 + Frame Stand ×2 + Wreath ×4</div>
+  <div class="tag-row"><span class="tag b-green">利润 ~$75</span></div>
+</div>
+</div>
+
+<!-- F5: InquiryPrioritizer -->
+<div class="card reason">
+<h2><span class="dot" style="background:var(--red);"></span>F5: InquiryPrioritizer <span class="badge b-red">待训练</span></h2>
+<div style="font-size:12px; color:var(--text-dim); margin-bottom:12px;">数据不足 — 需标注30条询盘 → 训练 ClassifyInquiryIntent</div>
+<div class="dim-bar"><div class="row"><span class="n">批量采购 bulk_order</span><span class="s">30%</span></div><div class="track"><div class="fill fill-green" style="width:30%;"></div></div></div>
+<div class="dim-bar"><div class="row"><span class="n">定制设计 custom_design</span><span class="s">25%</span></div><div class="track"><div class="fill fill-purple" style="width:25%;"></div></div></div>
+<div class="dim-bar"><div class="row"><span class="n">样品请求 sample_request</span><span class="s">20%</span></div><div class="track"><div class="fill fill-yellow" style="width:20%;"></div></div></div>
+<div class="dim-bar"><div class="row"><span class="n">比价 price_inquiry</span><span class="s">15%</span></div><div class="track"><div class="fill fill-orange" style="width:15%;"></div></div></div>
+<div class="dim-bar"><div class="row"><span class="n">垃圾 spam</span><span class="s">10%</span></div><div class="track"><div class="fill fill-red" style="width:10%;"></div></div></div>
+<div style="margin-top:8px; font-size:11px; color:var(--accent);">
+  优先回复: bulk_order → custom_design → sample_request → price_inquiry
+</div>
+</div>
+</div>
+
+<!-- ===== EVALS ===== -->
+<div class="r r2">
+<div class="card">
+<h2><span class="dot" style="background:var(--accent);"></span>Evals 质量闸门 <span class="badge b-sense">5个Suite</span></h2>
+<table class="dt">
+<tr><th>Suite</th><th>状态</th><th>阻塞原因</th><th>解锁条件</th></tr>
+<tr>
+  <td><code style="color:var(--accent);">StoreHealthScoreSuite</code></td>
+  <td><span style="color:var(--green);">立即可部署</span></td><td>—</td><td>数据完整</td>
+</tr><tr>
+  <td><code style="color:var(--accent);">ListingQualityAuditorSuite</code></td>
+  <td><span style="color:var(--green);">立即可部署</span></td><td>—</td><td>355产品可见</td>
+</tr><tr>
+  <td><code style="color:var(--accent);">SeasonalForecastSuite</code></td>
+  <td><span style="color:var(--yellow);">待验证</span></td><td>无12个月历史</td><td>积累3个月回测</td>
+</tr><tr>
+  <td><code style="color:var(--accent);">CrossSellBundleSuite</code></td>
+  <td><span style="color:var(--yellow);">待验证</span></td><td>套餐未上线</td><td>上线后追踪转化</td>
+</tr><tr>
+  <td><code style="color:var(--accent);">InquiryClassificationSuite</code></td>
+  <td><span style="color:var(--red);">待训练</span></td><td>无标注询盘</td><td>标注30条询盘</td>
+</tr>
+</table>
+<div style="margin-top:12px; font-size:11px; color:var(--text-dim);">
+  <strong style="color:var(--green);">建议:</strong> StoreHealthScore + ListingQualityAuditor 本周即可部署，每周运行一次
+</div>
+</div>
+
+<div class="card">
+<h2><span class="dot" style="background:var(--yellow);"></span>Ethics Filter — 8 主题审查 <span class="badge b-orange">4通过</span></h2>
+<div class="ethics-grid">
+  <div class="ei"><div class="num">1</div><div>公平性 <span style="color:var(--green);">🟢</span><br><span class="fs11" style="color:var(--text-dim);">$0.30-$52 无歧视</span></div></div>
+  <div class="ei"><div class="num">2</div><div>可解释性 <span style="color:var(--green);">🟢</span><br><span class="fs11" style="color:var(--text-dim);">全部附带reasoning</span></div></div>
+  <div class="ei"><div class="num">3</div><div>安全性 <span style="color:var(--green);">🟢</span><br><span class="fs11" style="color:var(--text-dim);">P4P $30硬上限</span></div></div>
+  <div class="ei"><div class="num">4</div><div>问责性 <span style="color:var(--red);">🔴</span><br><span class="fs11" style="color:var(--red);">操作日志待建</span></div></div>
+  <div class="ei"><div class="num">5</div><div>多方协作 <span style="color:var(--yellow);">🟡</span><br><span class="fs11" style="color:var(--text-dim);">审批流程待建</span></div></div>
+  <div class="ei"><div class="num">6</div><div>明确责任 <span style="color:var(--green);">🟢</span><br><span class="fs11" style="color:var(--text-dim);">运营经理最终责任人</span></div></div>
+  <div class="ei"><div class="num">7</div><div>以人为中心 <span style="color:var(--green);">🟢</span><br><span class="fs11" style="color:var(--text-dim);">所有操作人工确认</span></div></div>
+  <div class="ei"><div class="num">8</div><div>系统化 <span style="color:var(--red);">🔴</span><br><span class="fs11" style="color:var(--red);">季度回顾待建立</span></div></div>
+</div>
+<div style="margin-top:10px; font-size:11px; color:var(--text-dim);">
+  通过: 4/8 &nbsp;|&nbsp; <span style="color:var(--red);">问责性 #4</span> 和 <span style="color:var(--red);">系统化 #8</span> 必须在 P4P 启动前解决
+</div>
+</div>
+</div>
+
+<!-- ===== ACT ===== -->
+<div class="card act">
+<h2><span class="dot" style="background:var(--act);"></span>ACT — 即时执行方案 <span class="badge b-act">三阶段</span></h2>
+<div class="r r3">
+  <!-- P0 -->
+  <div>
+    <h3 style="font-size:14px; color:var(--red); margin-bottom:12px;">P0 · 今天</h3>
+    <div class="tl">
+      <div class="tl-i p0">
+        <h4>23优品全部入橱窗</h4>
+        <div class="d">驱动: StoreHealthScore alert · 橱窗优品占比 0%→100%</div>
+      </div>
+      <div class="tl-i p0">
+        <h4>Peony Small #5 品牌+橱窗</h4>
+        <div class="d">驱动: ListingQualityAuditor · 曝光 +30%</div>
+      </div>
+      <div class="tl-i p0">
+        <h4>启动 P4P $20/天</h4>
+        <div class="d">驱动: SeasonalForecast · 日均曝光 +1,800</div>
+      </div>
+    </div>
+  </div>
+  <!-- P1 -->
+  <div>
+    <h3 style="font-size:14px; color:var(--orange); margin-bottom:12px;">P1 · 本周</h3>
+    <div class="tl">
+      <div class="tl-i p1">
+        <h4>TOP10 8个加品牌前缀</h4>
+        <div class="d">驱动: ListingQualityAuditor · 品牌搜索 +50%</div>
+      </div>
+      <div class="tl-i p1">
+        <h4>场景化主图替换</h4>
+        <div class="d">驱动: CTR分析 · CTR 2.17%→3%</div>
+      </div>
+      <div class="tl-i p1">
+        <h4>回复率 50%→70%</h4>
+        <div class="d">驱动: 转化漏斗 · 服务力分 +1</div>
+      </div>
+      <div class="tl-i p1">
+        <h4>Bundle 1 套餐上线</h4>
+        <div class="d">驱动: CrossSellBundleGenerator · 客单价杠杆</div>
+      </div>
+    </div>
+  </div>
+  <!-- P2 -->
+  <div>
+    <h3 style="font-size:14px; color:var(--accent); margin-bottom:12px;">P2 · 30天</h3>
+    <div class="tl">
+      <div class="tl-i p2">
+        <h4>7个普通品晋级优品</h4>
+        <div class="d">驱动: HealthScore · 优品 23→30</div>
+      </div>
+      <div class="tl-i p2">
+        <h4>TOP5详情页前三屏优化</h4>
+        <div class="d">驱动: ListingQualityAuditor · 点击→询盘 +20%</div>
+      </div>
+      <div class="tl-i p2">
+        <h4>海外仓 1-3 SKU</h4>
+        <div class="d">驱动: 星等级 · 商品力分破零</div>
+      </div>
+      <div class="tl-i p2">
+        <h4>标注30条询盘</h4>
+        <div class="d">驱动: InquiryClassificationSuite · 询盘自动分类</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== WEEKLY DASHBOARD ===== -->
+<div class="card">
+<h2><span class="dot" style="background:var(--accent);"></span>周度 AIP 运营仪表盘 <span class="badge b-sense">每周一自动输出</span></h2>
+<div class="r r2">
+  <!-- Left -->
+  <div>
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+      <div style="font-size:42px; font-weight:900; color:var(--red);">25</div>
+      <div>
+        <div style="font-size:14px; font-weight:600;">健康度 /100</div>
+        <div style="font-size:11px; color:var(--text-dim);">产品 0 · 流量 5 · 转化 10 · 服务 10</div>
+      </div>
+    </div>
+    <div class="fbar" style="margin-bottom:8px;"><span class="lab" style="color:var(--green);">曝光</span><div class="track"><div class="now" style="width:23%;">2,901</div></div><span class="delta" style="color:var(--green);">+7.4%</span></div>
+    <div class="fbar" style="margin-bottom:8px;"><span class="lab" style="color:var(--red);">询盘</span><div class="track"><div class="now" style="width:13%;">13</div></div><span class="delta" style="color:var(--red);">-18.8%</span></div>
+    <div class="alert alert-red" style="font-size:11px;">点击→询盘转化率下降 40% — 本周核心问题</div>
+    <div style="margin-top:12px; font-size:12px;">
+      <div><span style="color:var(--green);">🏆 明星产品:</span> Peony Small 7-Fork (询盘率 2%)</div>
+      <div><span style="color:var(--red);">🚨 问题产品:</span> Spandex Arch Cover (曝光 95 零询盘)</div>
+    </div>
+  </div>
+  <!-- Right: MA Tasks + Issues + Forecast -->
+  <div>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px;">本周 MA 任务</div>
+      <div class="dim-bar"><div class="row"><span class="n" style="font-size:11px;">🔴 打造30个优爆品</span><span class="s">23/30</span></div><div class="track"><div class="fill fill-orange" style="width:77%;"></div></div></div>
+      <div class="dim-bar"><div class="row"><span class="n" style="font-size:11px;">🔴 发布1个热卖品</span><span class="s">0/1</span></div><div class="track"><div class="fill fill-red" style="width:0%;"></div></div></div>
+      <div class="dim-bar"><div class="row"><span class="n" style="font-size:11px;">🟡 优化3个产品定价</span><span class="s">0/3</span></div><div class="track"><div class="fill fill-red" style="width:0%;"></div></div></div>
+    </div>
+    <div class="alert alert-red" style="font-size:11px;">橱窗优品占比 0% — 必须放优品进橱窗</div>
+    <div class="alert alert-red" style="font-size:11px;">无 P4P 投放 — 无付费流量补充</div>
+    <div style="margin-top:12px; padding:10px; background:var(--green-soft); border-radius:8px; font-size:11px;">
+      <strong style="color:var(--green);">下周预测 (完成P0后):</strong><br>
+      曝光 2,901 → <strong>4,500</strong> (+55%) · 点击 63 → <strong>120</strong> (+90%) · 询盘 13 → <strong>20</strong> (+54%)
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== DOCS INDEX ===== -->
+<div class="card">
+<h2><span class="dot" style="background:var(--text-dim);"></span>文档索引 <span class="badge" style="background:rgba(255,255,255,0.05); color:var(--text-dim);">6份</span></h2>
+<table class="dt">
+<tr><th>文档</th><th>定位</th><th>规模</th><th>作用</th></tr>
+<tr><td><code style="color:var(--accent);">Palantir_AIP_Wiki.md</code></td><td>理论基座</td><td>894行</td><td>AIP 全知识库</td></tr>
+<tr><td><code style="color:var(--accent);">AIP_Ontology_Alibaba_Blueprint.md</code></td><td>Ontology 映射</td><td>534行</td><td>7 Object Types + 5 Functions</td></tr>
+<tr><td><code style="color:var(--accent);">Alibaba_Operations_Deep_Analysis.md</code></td><td>运营 SOP</td><td>406行</td><td>排序逻辑 / P4P 手册</td></tr>
+<tr><td><code style="color:var(--accent);">LILIS_Data_Model_v2.md</code></td><td>数据模型</td><td>302行</td><td>7张表 · 60+字段 · 预测</td></tr>
+<tr><td><code style="color:var(--accent);">LILIS_Cross_Platform_Predictive_Analysis.md</code></td><td>跨平台</td><td>393行</td><td>4平台 GMV预测</td></tr>
+<tr><td style="color:var(--act);"><code>AIP_Alibaba_Integration.md</code></td><td style="color:var(--act);"><strong>集成总纲</strong></td><td>299行</td><td style="color:var(--act);"><strong>AIP + 真实数据 → 行动</strong></td></tr>
+</table>
+</div>
+
+<!-- Key insight -->
+<div style="padding:16px; background:linear-gradient(135deg, rgba(167,139,250,0.06), rgba(34,211,238,0.06)); border-radius:12px; border:1px solid var(--border);">
+  <div style="font-size:14px; font-weight:600; margin-bottom:4px;">核心结论</div>
+  <div style="font-size:13px; color:var(--text-dim);">
+    355 个产品 + 31.4% 复购率证明<strong style="color:var(--green);">产品力过关</strong>，但 6.5% 优品占比 + 0% 橱窗占比 + 0 P4P 投放 = 曝光被压制在同行 <strong style="color:var(--red);">1/4</strong>。<br>
+    AIP Logic Functions 已将问题精确诊断，对应的 <strong style="color:var(--act);">5 个 P0 行动</strong> 今天即可执行。
+  </div>
+</div>
+
+<div class="ft">
+  LILIS · Palantir AIP Integration · Sense → Reason → Act · 2026-05-18 · cn1575365235ierx.en.alibaba.com
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+# Cursor Rules — AIP-LLMWiki Knowledge Base
+
+You are working in the AIP-LLMWiki knowledge base, a multi-agent collaborative wiki for cross-border e-commerce operations and Palantir AIP platform knowledge.
+
+## Before Any Task
+
+1. Read `AGENTS.md` for mandatory rules
+2. Check `wiki/经验索引.md` for relevant historical experience
+3. If failure records exist for your task type, avoid the documented pitfalls
+
+## File Access Rules
+
+- `wiki/` — READ + WRITE (your output goes here)
+- `raw/` — READ ONLY (never modify source materials)
+- `schema/` — DO NOT TOUCH (human-managed)
+- `.obsidian/` — DO NOT TOUCH
+
+## Page Standards
+
+- YAML frontmatter required: `tags`, `created`
+- Use `[[wikilinks]]` (no `.md` suffix, no backslash escaping)
+- New pages must link to ≥2 existing pages
+- Check for existing pages before creating new ones
+
+## Experience Loop (Mandatory)
+
+After completing any substantive task:
+1. Create experience record per `wiki/经验记录模板.md`
+2. Update `wiki/经验索引.md` with the new entry
+3. Set `outcome` and `confidence` in frontmatter
+
+## Reference Documents
+
+- Full protocol: `wiki/Agent工作流协议.md`
+- Handoff: `wiki/Agent-Handoff协议.md`
+- SOP: `wiki/知识库维护SOP.md`

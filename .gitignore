@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Obsidian - workspace/session data (not config)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Temporary / untitled files
+未命名*
+
+# Canvas/base files (optional - uncomment to track)
+# *.canvas
+# *.base
+
+# Agent lock files
+*.lock
+
+# Python cache
+__pycache__/
+*.pyc

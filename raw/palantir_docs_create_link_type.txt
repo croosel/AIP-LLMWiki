@@ -1,0 +1,525 @@
+Fetched 4/4 URLs successfully
+
+-----
+
+
+
+-----
+
+Page
+URL: https://www.palantir.com/docs/foundry/object-link-types/create-link-type/
+
+Search
+
+[Palantir](https://www.palantir.com/)
+
+Documentation
+
+- [Documentation](https://www.palantir.com/docs/foundry/)
+- [Apollo](https://www.palantir.com/docs/apollo/)
+- [Gotham](https://www.palantir.com/docs/gotham/)
+
+Search documentation
+
+Search
+
+karat
+
++
+
+K
+
+[API Reference ↗](https://www.palantir.com/docs/foundry/api-reference/)Send feedback
+
+en
+
+enjpkrzh
+
+ABXY
+
+ABXYABXYABXYABXYABXYABXY
+
+- Capabilities
+
+  - [AI Platform (AIP)](https://www.palantir.com/docs/foundry/aip/overview/)
+  - [Data connectivity & integration](https://www.palantir.com/docs/foundry/data-integration/overview/)
+  - [Model connectivity & development](https://www.palantir.com/docs/foundry/model-integration/overview/)
+  - [Ontology building](https://www.palantir.com/docs/foundry/ontology/overview/)
+  - [Developer toolchain](https://www.palantir.com/docs/foundry/dev-toolchain/overview/)
+  - [Use case development](https://www.palantir.com/docs/foundry/app-building/overview/)
+  - [Observability](https://www.palantir.com/docs/foundry/observability/overview/)
+  - [Analytics](https://www.palantir.com/docs/foundry/analytics/overview/)
+  - [Product delivery](https://www.palantir.com/docs/foundry/devops/overview/)
+  - [Security & governance](https://www.palantir.com/docs/foundry/security/overview/)
+  - [Management & enablement](https://www.palantir.com/docs/foundry/administration/overview/)
+- [Getting started](https://www.palantir.com/docs/foundry/getting-started/overview/)
+- [Architecture center](https://www.palantir.com/docs/foundry/architecture-center/overview/)
+- Platform updates
+
+  - [Announcements](https://www.palantir.com/docs/foundry/announcements/)
+  - [Release notes](https://www.palantir.com/docs/foundry/announcements/release-notes/)
+
+[Ontology building](https://www.palantir.com/docs/foundry/ontology/overview/)Object and link types[Link types](https://www.palantir.com/docs/foundry/object-link-types/link-types-overview/)[Create a link type](https://www.palantir.com/docs/foundry/object-link-types/create-link-type/)
+
+# [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#create-a-link-type) Create a link type
+
+We recommend creating and configuring a new link type with the guided helper outlined below. However, if you exit the helper before completing the object creation process, you can manually complete the process by specifying the link type, keys, and API names for the new link type.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#access-the-link-type-creation-helper) Access the link type creation helper
+
+Navigate to Ontology Manager. To access the link type creation helper, choose one of the following methods:
+
+- Select **New** from the top right corner, then select **Link type**.
+
+- In the left sidebar, select **Link types** under **Resources**. Then, select **New link type** in the top right corner of the **Link types** page.
+
+- Navigate to an object type you want to link, then select **Create new link type** from within the link type graph on the object type’s **Overview** page.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#configure-a-new-link-type) Configure a new link type
+
+The new link type helper will guide you through the following steps:
+
+- [Choose the relationship type](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#choose-the-relationship-type)
+- [Define link resources](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#define-link-resources)
+  - [Foreign key relationship type](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#foreign-key-relationship-type)
+  - [Join table dataset relationship type](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#join-table-dataset-relationship-type)
+  - [Backing object relationship type](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#backing-object-relationship-type)
+- [Define link type names](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#define-link-type-names)
+- [Save location](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#save-location)
+- [Save change to ontology](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#save-change-to-ontology)
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#choose-the-relationship-type) Choose the relationship type
+
+1. In the first step of the **Create a new link type** dialog, select the relationship type for the link.
+
+2. Choose the relationship type for defining links between your two objects:
+   - **Object type foreign keys:** Supports "one-to-one" and "many-to-one" cardinality link types. This option allows you to select properties that represent the foreign key and corresponding primary key for the desired objects. See [below for details](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#foreign-key-relationship-type) in defining link resources with a foreign key.
+   - **Join table dataset:** For "many-to-many" cardinality link types. This option allows you to use a join table dataset to back the link. See [below for details](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#join-table-dataset-relationship-type) in defining link resources with a dataset.
+   - **Backing object type:** Object-backed link types expand on many-to-one cardinality link types, providing first class support for object types as a link type storage solution. See [below for details](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#backing-object-relationship-type) on defining link resources backed by an object. For additional information, refer to the [object-backed links](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#object-backed-links) section.
+
+In the examples below, assume that there are two object types that are related to each other through a cardinality: an `Aircraft` object type and a `Flight` object type. Cardinality types include:
+
+- _One-to-one cardinality:_ This indicates that one `Aircraft` should be linked to a single `Flight`. The one-to-one cardinality serves as an indicator of the intended relationship, but the one-to-one cardinality is not enforced.
+- _One-to-many cardinality:_ This indicates that one `Aircraft` can be linked to many `Flights`.
+- _Many-to-one cardinality:_ This indicates that many `Aircraft` can be linked to one `Flight`.
+- _Many-to-many cardinality:_ This indicates that one `Aircraft` can be linked to many `Flights`, and one `Flight` can be linked to many `Aircraft`.
+
+3. Select **Next** to proceed to the next step.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#define-link-resources) Define link resources
+
+#### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#foreign-key-relationship-type) Foreign key relationship type
+
+In a one-to-one or many-to-one cardinality link type, you will define the foreign key property and primary key properties for the link. The **foreign key** property of one object type must refer to the **primary key** property of the other object type.
+
+For example, the `Tail Number` property is the primary key on the `Aircraft` object type. The `Flight Tail Number` property on the `Flight` object type is the foreign key. Links will be created between `Aircraft` and `Flight` object types when the `Tail Number` of the `Aircraft` matches a `Flight Tail Number` of a `Flight`.
+
+1. In the **Link resources** step, choose the object types for your link.
+
+2. Select the primary key object type from the dropdown menu on the right (`Aircraft` in our example).
+
+3. Select the foreign key object type from the dropdown menu on the left (`Flight` in our example). The creation dialog will detect and automatically select a foreign key if the following conditions are met:
+   - The foreign key matches the primary key of the linked object type.
+   - The property types of both objects match.
+4. Choose the properties that will form the link:
+   - For the foreign key object type, select the property that will be used as the foreign key for the source object type (`Flight Tail Number` for the `Flight` object types).
+   - The primary key of the object type is auto-selected since there is only one primary key for each object type (`Tail Number` for the `Aircraft` object type).
+5. Select **Next** to continue.
+
+#### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#join-table-dataset-relationship-type) Join table dataset relationship type
+
+In a many-to-many cardinality, select a datasource that includes all combinations of links between the primary key of the first object type (`Aircraft` in our example) and the second object type (`Flight` in our example).
+
+A many-to-many cardinality, which requires a backing datasource, is required to enable users to [edit or write back](https://www.palantir.com/docs/foundry/object-link-types/allow-editing/) to the link type.
+
+1. In the **Link resources** step, choose the object types for your link.
+2. Select the first object type from the dropdown menu on the left (`Flight`).
+3. Select the second object type from the dropdown menu on the right (`Aircraft`).
+4. Choose the join table dataset. Select a dataset that contains columns matching the primary keys for both selected object types. A column can only be mapped to one primary key.
+   - It is now possible to automatically generate a join table for new link types. The **Generate join table** option will create a dataset with the correct schema based on the primary keys of the two object types you have selected. This means that you can get started faster if you have user edit-backed data, or if you want to provide production data later on.
+5. Select which columns in the link type’s backing datasource map to the primary keys of each of the linked object types.
+6. Select **Next** to continue.
+
+#### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#backing-object-relationship-type) Backing object relationship type
+
+Before creating the object-backed link, ensure that the [prerequisite](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#prerequisites-for-creating-an-object-backed-link-type) object and links have been created.
+
+1. Select the object types created in the prerequisites to represent your desired link type. The objects on the left and right represent the two entities that will be linked together. The object in the middle serves as the intermediary and provides additional metadata about the connection between the two entities, and backs the link.
+2. If there are multiple links between the objects on the left and right and the intermediary object in the middle, use the dropdown menus to select the desired links between the left and right objects and the intermediary object.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#define-link-type-names) Define link type names
+
+1. In the **Link type names** step, provide the display and API names for your new link type.
+2. Enter a display name for each side of the link type. A side of the link type represents the link _to_ that object type. In our example, the display name for the `Aircraft` object type describes the link from `Flight` _to_`Aircraft`. You could choose the display name `Assigned Aircraft` since one `Flight` has one `Assigned Aircraft`.
+3. The API name will be automatically generated based on the display name, but you can modify it if needed.
+   - The API name field is used when referring to a link type programmatically in code. The API name on a side of a link type can be used to return objects of that type. For example, if the API name on the `Aircraft` side of the link type is `assignedAircraft`, then calling `Flight.assignedAircraft.get()` will return the `Aircraft` objects linked to those `Flight` objects.
+   - Link type API names _must_ adhere to the following:
+
+     - Begin with a lowercase character and consist of only alphanumeric characters.
+     - Be unique across all link types associated with the same object type.
+     - Be between 1 and 100 characters long.
+     - Be NFKC normalized.
+     - Not be a reserved keyword.
+   - [Learn more about API names.](https://www.palantir.com/docs/foundry/functions/api-objects-links/)
+4. Select **Next** to proceed.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#save-location) Save location
+
+In the final step, choose a project to save this link type to. Then, **Submit**. After completing these steps, your new link type will be created, but not yet saved.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#save-change-to-ontology) Save change to ontology
+
+Back in Ontology Manager, select **Save** in the upper right corner to [make the change to your ontology](https://www.palantir.com/docs/foundry/ontology-manager/save-changes/).
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#object-backed-links) Object-backed links
+
+Object-backed link types expand on many-to-one cardinality link types, providing first class support for object types as a link type storage solution. Object-backed link types allow for the inclusion of additional metadata on the link and support restricted views.
+
+For object-backed links, in addition to the `Aircraft` and `Flight` objects, assume an additional object type for the `Flight Manifest`. With an object-backed link, you can have the `Flight Manifest` object type that links the `Aircraft` and `Flight` objects. Unlike a foreign key or data-set backed link, this `Flight Manifest` object can contain additional properties such as `Pilot` and `First Mate` to provide additional metadata on the link.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#prerequisites-for-creating-an-object-backed-link-type) Prerequisites for creating an object-backed link type
+
+Before you can create an object-backed link type, you must first do the following:
+
+1. Create the object types on either side of the link type. See [create an object type](https://www.palantir.com/docs/foundry/object-link-types/create-object-type/) for additional details.
+2. Create the backing object type that links the two object types together.
+3. Create the many-to-one link types between each side of the link type to the backing object type. See [configure a new link type](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#configure-a-new-link-type) for additional details.
+
+For the `Aircraft`, `Flight`, and `Flight Manifest` example from above, you need to create the following resources:
+
+1. Create the object types on either side of the link type.
+1. `Aircraft` object type
+2. `Flight` object type
+2. Create the backing object type that links the two object types together.
+1. `Flight Manifest` object type
+3. Create the many-to-one link type between each side of the link type to the backing object type.
+1. Link between the `Aircraft` object type and the `Flight Manifest` object type
+2. Link between the `Flight` object type and the `Flight Manifest` object type
+
+Once these have been created, you can create the object-backed link type.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#convert-existing-links-to-object-backed-link-types) Convert existing links to object-backed link types
+
+Existing links can be converted to object-backed link types. Before modifying existing links, the [prerequisites](https://www.palantir.com/docs/foundry/object-link-types/create-link-type#prerequisites-for-creating-an-object-backed-link-type) for object-backed link types must be fulfilled.
+
+To modify the link type of an existing link:
+
+1. Open the link in Ontology Manager.
+2. In the **Configuration** section, update the join method and select **Object type**.
+3. Select the backing object type in the **Update link type to object-backed link type** dialog.
+4. Select the link type from the link edges to the backing object in the **Update link type to object-backed link type** dialog.
+5. Select the **Update to object-backed**.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#use-object-backed-link-types) Use object-backed link types
+
+Currently, object-backed link types can be viewed in Object Explorer, Vertex, and Workshop. Select a link to view the link's backing object properties. Note that in Vertex, the link title will display the link's backing object title instead.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#troubleshooting) Troubleshooting
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/create-link-type\#error-phonograph2datasetandbranchalreadyregistered) Error: `Phonograph2:DatasetAndBranchAlreadyRegistered`
+
+If you receive the error `Phonograph2:DatasetAndBranchAlreadyRegistered`, the datasource backing the link type you are trying to save is already backing a different link type in the Ontology and cannot be used again.
+
+[←\\
+PREVIOUSOverview](https://www.palantir.com/docs/foundry/object-link-types/link-types-overview/)
+
+[NEXTEdit link types\\
+→](https://www.palantir.com/docs/foundry/object-link-types/edit-link-types/)
+
+Images:
+- https://www.palantir.com/docs/resources/foundry/object-link-types/create-new-link-type.png?width=400
+- https://www.palantir.com/docs/resources/foundry/object-link-types/create-new-link-type-button.png
+- https://www.palantir.com/docs/resources/foundry/object-link-types/create-link-relationship-type.png
+- https://www.palantir.com/docs/resources/foundry/object-link-types/create-link-foreign-key.png
+- https://www.palantir.com/docs/resources/foundry/object-link-types/create-link-dataset.png
+- https://www.palantir.com/docs/resources/foundry/object-link-types/oblt-link-dialog.png
+- https://www.palantir.com/docs/resources/foundry/object-link-types/create-link-api.png
+- https://www.palantir.com/docs/resources/foundry/object-link-types/create-link-type-save-location-step.png?width=500
+- https://www.palantir.com/docs/resources/foundry/object-link-types/oblt_overview.png
+
+-----
+
+Page
+URL: https://www.palantir.com/docs/foundry/interfaces/interface-link-types-overview/
+
+Search
+
+[Palantir](https://www.palantir.com/)
+
+Documentation
+
+- [Documentation](https://www.palantir.com/docs/foundry/)
+- [Apollo](https://www.palantir.com/docs/apollo/)
+- [Gotham](https://www.palantir.com/docs/gotham/)
+
+Search documentation
+
+Search
+
+karat
+
++
+
+K
+
+[API Reference ↗](https://www.palantir.com/docs/foundry/api-reference/)Send feedback
+
+en
+
+enjpkrzh
+
+ABXY
+
+ABXYABXYABXYABXYABXYABXY
+
+- Capabilities
+
+  - [AI Platform (AIP)](https://www.palantir.com/docs/foundry/aip/overview/)
+  - [Data connectivity & integration](https://www.palantir.com/docs/foundry/data-integration/overview/)
+  - [Model connectivity & development](https://www.palantir.com/docs/foundry/model-integration/overview/)
+  - [Ontology building](https://www.palantir.com/docs/foundry/ontology/overview/)
+  - [Developer toolchain](https://www.palantir.com/docs/foundry/dev-toolchain/overview/)
+  - [Use case development](https://www.palantir.com/docs/foundry/app-building/overview/)
+  - [Observability](https://www.palantir.com/docs/foundry/observability/overview/)
+  - [Analytics](https://www.palantir.com/docs/foundry/analytics/overview/)
+  - [Product delivery](https://www.palantir.com/docs/foundry/devops/overview/)
+  - [Security & governance](https://www.palantir.com/docs/foundry/security/overview/)
+  - [Management & enablement](https://www.palantir.com/docs/foundry/administration/overview/)
+- [Getting started](https://www.palantir.com/docs/foundry/getting-started/overview/)
+- [Architecture center](https://www.palantir.com/docs/foundry/architecture-center/overview/)
+- Platform updates
+
+  - [Announcements](https://www.palantir.com/docs/foundry/announcements/)
+  - [Release notes](https://www.palantir.com/docs/foundry/announcements/release-notes/)
+
+[Ontology building](https://www.palantir.com/docs/foundry/ontology/overview/)[Interfaces](https://www.palantir.com/docs/foundry/interfaces/interface-overview/)[Interface link types](https://www.palantir.com/docs/foundry/interfaces/interface-link-types-overview/)
+
+# [Copy link to section](https://www.palantir.com/docs/foundry/interfaces/interface-link-types-overview\#interface-link-type-constraints) Interface link type constraints
+
+An interface link type constraint defines an object-to-object relationship common across all object types implementing an interface. Users can specify a description for the link and an API name for the link type to use as a reference in code. When an object implements an interface with an interface link type constraint, concrete link types on the object type are used to fulfill interface link type constraints.
+
+As shown in the example above, to model the relationship between a facility and the airlines it serves, the `Facility` interface declares an optional one-to-many link type constraint between any object that implements the `Facility` interface and the `Airline` object type. This means that if the implementing object type (for example `Airport`) has a concrete link type to the `Airlines` object type, that link can be accessed through the interface link type API name.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/interfaces/interface-link-types-overview\#link-type-constraints) Link type constraints
+
+Link type constraints define the parameters of an interface link type. All implementing object types must have a link that satisfies these constraints if the link type is required. These parameters include the following:
+
+- **Link target type:** An interface or an object type.
+- **Target:** A specific interface or object type.
+- **Cardinality:** One-to-one or one-to-many.
+- Whether or not the link is required as part of object type implementation.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/interfaces/interface-link-types-overview\#link-target-interface) Link target: Interface
+
+You should use a link target of type `interface` when you want to model the relationship between two abstract object types.
+
+For example, you can use an interface link target to model the relationship between `Facility` and the `Alert` where they occur. Because there are several kinds of facilities and several kinds of alerts, it would be impossible to model the connection between the two if you could only use a single object type for each end of the link. Instead, you can model this relationship by defining a `Facility` interface, an `Alert` interface, and an interface link on `Facility` that is set to link to the `Alert` interface. You can then define an `Airport` object type that implements the `Facility` interface and a `Flight Alert` object that implements the `Alert` interface. From there, you can define a concrete link type from `Airport` to `Flight Alert` to satisfy the `Facility` interface’s link type constraint.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/interfaces/interface-link-types-overview\#link-target-object-type) Link target: Object type
+
+You should use a link target of type `object type` when the relationship between the interface and the target is concrete and the specificity should be enforced by the link type constraint.
+
+For example, you could define a `Facility` interface that links to the `Airlines` object type. This interface link would model the fact that no matter what the facility type is, you expect it to have a link to the specific airlines that it serves.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/interfaces/interface-link-types-overview\#cardinality) Cardinality
+
+Interface link types can further be specified to have a `ONE` or `MANY` cardinality. These cardinalities are analogous to one-to-one and one-to-many modeling, respectively. A `ONE` cardinality indicates that each object implementing the interface should link to one object of the target type. A `MANY` cardinality indicates that each object implementing the interface may link to any number of objects of the target type.
+
+You should decide between using `ONE` or `MANY` based on the modeling needs for your Ontology. In some cases, it may make more sense to restrict the cardinality of the link to a single object. For example, you may want to model the relationship between a `Driver's License` and a `Person` as a `SINGLE` cardinality link since each license can only belong to a single concrete individual. If the relationship allows for more flexibility, such as with a `Company` and its `Shareholders`, you may want to use a `MANY` cardinality link to signify that each company can have one or more concrete shareholders.
+
+[←\\
+PREVIOUSEdit an interface implementation](https://www.palantir.com/docs/foundry/interfaces/edit-interface-implementation/)
+
+[NEXTExtend an interface\\
+→](https://www.palantir.com/docs/foundry/interfaces/extend-interface/)
+
+Images:
+- https://www.palantir.com/docs/resources/foundry/interfaces/create-link-type-constraint-modal.png?width=500
+
+-----
+
+Page
+URL: https://www.palantir.com/docs/foundry/object-link-types/derived-properties/
+
+Search
+
+[Palantir](https://www.palantir.com/)
+
+Documentation
+
+- [Documentation](https://www.palantir.com/docs/foundry/)
+- [Apollo](https://www.palantir.com/docs/apollo/)
+- [Gotham](https://www.palantir.com/docs/gotham/)
+
+Search documentation
+
+Search
+
+karat
+
++
+
+K
+
+[API Reference ↗](https://www.palantir.com/docs/foundry/api-reference/)Send feedback
+
+en
+
+enjpkrzh
+
+ABXY
+
+ABXYABXYABXYABXYABXYABXY
+
+- Capabilities
+
+  - [AI Platform (AIP)](https://www.palantir.com/docs/foundry/aip/overview/)
+  - [Data connectivity & integration](https://www.palantir.com/docs/foundry/data-integration/overview/)
+  - [Model connectivity & development](https://www.palantir.com/docs/foundry/model-integration/overview/)
+  - [Ontology building](https://www.palantir.com/docs/foundry/ontology/overview/)
+  - [Developer toolchain](https://www.palantir.com/docs/foundry/dev-toolchain/overview/)
+  - [Use case development](https://www.palantir.com/docs/foundry/app-building/overview/)
+  - [Observability](https://www.palantir.com/docs/foundry/observability/overview/)
+  - [Analytics](https://www.palantir.com/docs/foundry/analytics/overview/)
+  - [Product delivery](https://www.palantir.com/docs/foundry/devops/overview/)
+  - [Security & governance](https://www.palantir.com/docs/foundry/security/overview/)
+  - [Management & enablement](https://www.palantir.com/docs/foundry/administration/overview/)
+- [Getting started](https://www.palantir.com/docs/foundry/getting-started/overview/)
+- [Architecture center](https://www.palantir.com/docs/foundry/architecture-center/overview/)
+- Platform updates
+
+  - [Announcements](https://www.palantir.com/docs/foundry/announcements/)
+  - [Release notes](https://www.palantir.com/docs/foundry/announcements/release-notes/)
+
+[Ontology building](https://www.palantir.com/docs/foundry/ontology/overview/)Object and link types[Properties](https://www.palantir.com/docs/foundry/object-link-types/properties-overview/)[Derived properties](https://www.palantir.com/docs/foundry/object-link-types/derived-properties/)
+
+# [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#configure-derived-properties) Configure derived properties
+
+Beta
+
+Derived properties are in the [beta](https://www.palantir.com/docs/foundry/platform-overview/development-life-cycle/) phase of development and may not be available on your enrollment. Functionality may change during active development.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#overview) Overview
+
+Derived properties are properties that are calculated at runtime based on values from linked objects. Instead of storing data directly, a derived property pulls information from objects connected through link types, optionally applying aggregations like averaging, counting, or collecting values into lists.
+
+For example:
+
+- A `Department` object type could have a derived property for "Average employee salary" that aggregates salary values from all linked `Employee` objects.
+- A `Project` object type could have a derived property for "Lead engineer name" that retrieves the name from a single linked `Engineer` object.
+- An `Order` object type could have a derived property for "Product names" that collects all product names from linked `Product` objects into a list.
+
+Derived properties are **read-only** and cannot be edited by functions or actions. These properties use the security context of all objects involved in the calculation, ensuring users only see information for which they have access authorization.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#configure-a-derived-property) Configure a derived property
+
+To configure a derived property on an object type, follow the steps below.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#1-open-the-property-configuration-panel) 1\. Open the property configuration panel
+
+From the **Properties** tab of your object type, select **New property** or click on an existing property to edit it. This opens the property configuration side panel.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#2-navigate-to-the-source-tab) 2\. Navigate to the Source tab
+
+In the property configuration side panel, select the **Source** tab to configure where the property gets its values.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#3-select-the-linked-objects-source-type) 3\. Select the Linked objects source type
+
+In the **Source type** section, choose the **Linked objects** option. This enables derived property configuration.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#4-select-a-link-type) 4\. Select a link type
+
+In the **Linked objects** section, select a link type from the dropdown. This determines which objects the property will derive values from.
+
+- The dropdown menu shows all available link types from your current object type.
+- After selecting a link type, you can optionally add additional link types to traverse multiple levels of connections (up to 3 levels).
+- Use **Add linked object** to traverse through another level of linked objects.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#5-configure-aggregation-if-needed) 5\. Configure aggregation (if needed)
+
+If any link in your chain has a "many" cardinality (one object linking to multiple objects), you must select an **Aggregation** to combine the values:
+
+Available aggregations:
+
+- **Count:** Count the number of linked objects.
+- **Average:** Calculate the average of numeric values.
+- **Sum:** Calculate the sum of numeric values.
+- **Minimum:** Select the minimum value.
+- **Maximum:** Select the maximum value.
+- **Approximate cardinality:** Estimate the number of unique values.
+- **Exact cardinality:** Count the exact number of unique values.
+- **Collect list:** Collect all values into an ordered list (preserves duplicates).
+- **Collect set:** Collect all unique values into an unordered set.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#6-select-the-property-to-derive) 6\. Select the property to derive
+
+After selecting a link type (and aggregation if needed), choose which property from the linked object type you want to derive:
+
+- The dropdown menu shows all available properties from the final object type in your link chain.
+- For **Count** aggregation, you do not need to select a property as objects are automatically counted.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#7-configure-collection-limit-for-collect-aggregations) 7\. Configure collection limit (for collect aggregations)
+
+If you selected **Collect list** or **Collect set** as your aggregation, you can optionally set a limit on the number of items collected. The default limit is 10 items.
+
+## [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#multi-hop-derived-properties) Multi-hop derived properties
+
+Derived properties support traversing up to **3 levels** of linked objects. This allows you to derive properties from objects that are indirectly connected to your starting object type.
+
+For example:
+
+- A `Department` object type could derive "Project names" by traversing through `Employee` objects to their linked `Project` objects.
+- The link chain would be: Department → Employee → Project
+
+To configure multi-hop:
+
+1. Select your first link type.
+2. Select **Add linked object** to add another level.
+3. Select the next link type from the newly-connected object type.
+4. Repeat up to 3 levels total.
+
+### [Copy link to section](https://www.palantir.com/docs/foundry/object-link-types/derived-properties\#known-limitations) Known limitations
+
+- **OSv1 support:** Queries with derived properties may not contain any object types indexed using [OSv1](https://www.palantir.com/docs/foundry/object-backend/osv1-osv2-migration/).
+- **Text search:** Derived properties cannot be used in text search or keyword filters.
+- **Structs in OSDK:** In current versions of the TypeScript OSDK, queries with derived properties may not contain any [struct](https://www.palantir.com/docs/foundry/object-link-types/structs-overview/) property types. You can use a `$select` operation to exclude struct properties.
+- **Inline actions:** Properties with inline actions configured cannot be converted to derived properties.
+- **Value types:** Properties with value types cannot be converted to derived properties.
+- **Required properties:** Derived properties cannot be marked as required (non-nullable).
+- **Property type constraints:** Derived properties cannot have property type constraints.
+- **Display formatting:** Derived properties cannot have rule set bindings or base formatters.
+- **Primary keys:** Primary key properties cannot be derived properties.
+- **Ontology condition:** Derived properties are not supported for the Default ontology.
+
+[←\\
+PREVIOUSProperty reducers](https://www.palantir.com/docs/foundry/object-link-types/property-reducers/)
+
+[NEXTStructs / Overview\\
+→](https://www.palantir.com/docs/foundry/object-link-types/structs-overview/)
+
+Images:
+- https://www.palantir.com/docs/resources/foundry/object-link-types/configure-derived-property-source-tab.png?width=400
+- https://www.palantir.com/docs/resources/foundry/object-link-types/configure-derived-property-link-selection.png?width=400
+- https://www.palantir.com/docs/resources/foundry/object-link-types/configure-derived-property-aggregation.png?width=400
+- https://www.palantir.com/docs/resources/foundry/object-link-types/configure-multi-hop-link.png?width=400
+
+-----
+
+Page
+URL: https://www.palantir.com/docs/foundry/ontologies/ontology-migration/
+
+Every ontological resource is automatically linked to the Ontology it is created in. After their creation, resources can be moved between Ontologies. Migrating resources between Ontologies also changes the permissions on the resources, however, it does not impact the permissions on the underlying data and the input datasources. When migrating objects between Ontologies all edits will be preserved by default.
+
+To migrate resources from one Ontology to another, do the following:
+
+Navigate to the Ontology that owns the resource via the Ontology switcher located at the top right corner in the Ontology Manager.
+
+Click Migrate resources in the same Ontology to start the migration process. Then, select the target Ontology in the top row using the Ontology selection dropdown menu.
+
+Select the object types, link types, action types, and workflows to migrate. A preview of the selection of resources to be migrated are shown in their current Ontology (left) and in the target Ontology (right). Note that it is not possible to migrate object types from a private Ontology to the default Ontology unless the object type was originally created in the default Ontology.
+
+Migrating to default Ontology
+
+Make sure that you are migrating connected resources together. The migration fails if related ontological resources are missing in the selection.
+
+After completing the selection, click Submit to migrate the resources.
