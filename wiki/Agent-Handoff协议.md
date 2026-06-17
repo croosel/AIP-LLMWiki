@@ -5,13 +5,13 @@ tags:
   - 知识库治理
   - 元页面
 created: 2026-06-08
-source: "QoderWork Agent + Human Editor 协作制定"
+source: "Agent + Human Editor 协作制定"
 ---
 
 # Agent-Handoff 协议
 
 > 本协议定义了当工作在 Agent 之间交接时必须遵循的标准流程和信息格式。  
-> 所有 AI Agent（LLM Wiki Agent、QoderWork Agent、Cursor、Claude 等）在无法独立完成任务或需要其他 Agent 接力时，**必须**按本协议生成 Handoff 信息。  
+> 所有 AI Agent（LLM Wiki Agent、Agent、Cursor、Claude 等）在无法独立完成任务或需要其他 Agent 接力时，**必须**按本协议生成 Handoff 信息。  
 > 本协议与 [[Agent工作流协议]] 配套使用，共同构成知识库的多 Agent 协作基础设施。
 
 ---
@@ -23,12 +23,12 @@ source: "QoderWork Agent + Human Editor 协作制定"
 | 场景 | 说明 | 典型交接路径 |
 |------|------|-------------|
 | **任务范围越界** | 当前任务超出了 Agent 角色定义的权限范围 | 任何 Agent -> Human Editor |
-| **领域不匹配** | 需要不同领域的专业知识（如技术问题需要业务视角） | LLM Wiki <-> QoderWork |
+| **领域不匹配** | 需要不同领域的专业知识（如技术问题需要业务视角） | LLM Wiki <-> Agent |
 | **审批需求** | 需要 Human Editor 审批内容或决策 | 任何 Agent -> Human Editor |
 | **冲突无法解决** | 命名冲突、内容冲突等无法按规则自行解决 | 任何 Agent -> Human Editor |
-| **质量检查发现问题** | 断链、孤儿页面等需要专门修复 | QoderWork -> LLM Wiki |
-| **原始资料处理完毕** | raw/ 新资料已转化完成，需要通知后续处理 | LLM Wiki -> QoderWork |
-| **批量操作完成** | 大规模页面修改/创建后需要健康检查 | LLM Wiki -> QoderWork |
+| **质量检查发现问题** | 断链、孤儿页面等需要专门修复 | Agent -> LLM Wiki |
+| **原始资料处理完毕** | raw/ 新资料已转化完成，需要通知后续处理 | LLM Wiki -> Agent |
+| **批量操作完成** | 大规模页面修改/创建后需要健康检查 | LLM Wiki -> Agent |
 
 ### 1.2 可选触发 Handoff 的场景
 
@@ -230,14 +230,14 @@ source: "QoderWork Agent + Human Editor 协作制定"
 
 ## 五、典型 Handoff 场景示例
 
-### 5.1 LLM Wiki Agent -> QoderWork Agent（批量创建后健康检查）
+### 5.1 LLM Wiki Agent -> Agent（批量创建后健康检查）
 
 ```markdown
 ## Handoff 消息
 
 ### 基本信息
 - **发起 Agent**: LLM Wiki Agent v0.2.0
-- **接收 Agent**: QoderWork Agent
+- **接收 Agent**: Agent
 - **时间戳**: 2026-06-08 14:30 (Asia/Shanghai)
 - **紧急程度**: P2
 
@@ -267,12 +267,12 @@ source: "QoderWork Agent + Human Editor 协作制定"
 全量健康检查通过，无断链，反向链接完整。
 ```
 
-### 5.2 QoderWork Agent -> Human Editor（发现需要人工裁决的冲突）
+### 5.2 Agent -> Human Editor（发现需要人工裁决的冲突）
 
 ```markdown
 ## 简要 Handoff
 
-**发起**: QoderWork Agent | **接收**: Human Editor | **级别**: P1
+**发起**: Agent | **接收**: Human Editor | **级别**: P1
 
 **已完成**: 全量健康检查发现两个页面内容高度重叠
 **待处理**: 决定 [[SEO基因重建批次1]] 和 [[SEO重构工作流v1]] 是否应合并为一个页面，还是保持独立
@@ -296,8 +296,8 @@ source: "QoderWork Agent + Human Editor 协作制定"
 
 | 时间 | 发起 | 接收 | 级别 | 摘要 | 状态 |
 |------|------|------|------|------|------|
-| HH:MM | LLM Wiki | QoderWork | P2 | 5 个新页面健康检查 | 已确认 |
-| HH:MM | QoderWork | Human | P1 | 命名冲突待裁决 | 待处理 |
+| HH:MM | LLM Wiki | Agent | P2 | 5 个新页面健康检查 | 已确认 |
+| HH:MM | Agent | Human | P1 | 命名冲突待裁决 | 待处理 |
 ```
 
 ---

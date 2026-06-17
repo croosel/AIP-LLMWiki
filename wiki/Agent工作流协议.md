@@ -5,13 +5,13 @@ tags:
   - 知识库治理
   - 元页面
 created: 2026-06-08
-source: "QoderWork Agent + Human Editor 协作制定"
+source: "Agent + Human Editor 协作制定"
 ---
 
 # Agent 工作流协议
 
 > 本协议定义了所有 AI Agent 在操作 AIP-LLMWiki 知识库时必须遵守的统一规范。  
-> 无论是 [[LLM-Wiki统一知识底座设计|LLM Wiki Agent]]、QoderWork Agent、Cursor、Claude 还是其他任何 Agent，均受本协议约束。  
+> 无论是 [[LLM-Wiki统一知识底座设计|LLM Wiki Agent]]、Agent、Cursor、Claude 还是其他任何 Agent，均受本协议约束。  
 > 本协议的权威版本存放于 `wiki/Agent工作流协议.md`，由 Human Editor 审批后生效。
 
 ---
@@ -348,11 +348,11 @@ Agent 在提交任何修改前**必须**执行以下验证：
 - 不得创建与现有页面语义重复的页面
 - 不得删除其他 Agent 创建的页面（标记 `stub` + `待完善` 即可）
 
-### 5.2 QoderWork Agent（维护与健康检查）
+### 5.2 Agent（维护与健康检查）
 
 | 属性 | 说明 |
 |------|------|
-| **工具** | QoderWork 平台 |
+| **工具** | Agent 平台 |
 | **主要职责** | 知识库维护、健康检查、链接修复、报告生成 |
 | **写入权限** | `wiki/` 目录（编辑现有页面、创建维护报告） |
 | **只读权限** | `raw/`、`schema/`、根目录 |
@@ -397,7 +397,7 @@ Agent 在提交任何修改前**必须**执行以下验证：
 
 ### 5.5 角色权限矩阵
 
-| 操作 | LLM Wiki | QoderWork | Human Editor | 其他 Agent |
+| 操作 | LLM Wiki | Agent | Human Editor | 其他 Agent |
 |------|----------|-----------|-------------|------------|
 | 创建 wiki/ 页面 | 允许 | 仅维护报告 | 允许 | 指令范围内 |
 | 编辑 wiki/ 页面 | 允许 | 仅格式修复 | 允许 | 指令范围内 |
@@ -426,7 +426,7 @@ Agent 在提交任何修改前**必须**执行以下验证：
 - [ ] **命名无冲突**：无同名或语义等价的重复页面
 - [ ] **Wikilink 格式**：无 `.md` 后缀、无反斜杠转义、管道符使用正确
 
-### 6.2 周期性检查（由 QoderWork Agent 执行）
+### 6.2 周期性检查（由 Agent 执行）
 
 - [ ] **孤儿页面检测**：无链接指向的孤立页面统计与报告
 - [ ] **Stub 页面统计**：标记 `stub`/`待完善` 的页面清单

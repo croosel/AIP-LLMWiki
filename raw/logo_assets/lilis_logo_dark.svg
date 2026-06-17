@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Dark background -->
+  <rect width="400" height="280" fill="#1A1A2E"/>
+
+  <!-- Icon: Two interlocking diamonds (dark mode) -->
+  <g>
+    <!-- Orange diamond (behind, left) -->
+    <rect x="-35" y="-35" width="70" height="70" rx="3" fill="#E8530E"
+          transform="translate(185, 72) rotate(45)"/>
+    <!-- White diamond (front, right) -->
+    <rect x="-35" y="-35" width="70" height="70" rx="3" fill="#FFFFFF"
+          transform="translate(215, 72) rotate(45)"/>
+  </g>
+
+  <!-- Brand name: LILIS (white on dark) -->
+  <text x="200" y="185" text-anchor="middle"
+        font-family="'Inter', 'Montserrat', 'Poppins', system-ui, -apple-system, sans-serif"
+        font-size="56" font-weight="800" fill="#FFFFFF"
+        letter-spacing="4">LILIS</text>
+
+  <!-- Orange accent dots on the "I" letters (exact measured positions) -->
+  <circle cx="170" cy="122" r="5" fill="#E8530E"/>
+  <circle cx="225" cy="122" r="5" fill="#E8530E"/>
+
+  <!-- Sub-brand: lilisaura (light gray on dark) -->
+  <text x="200" y="218" text-anchor="middle"
+        font-family="'Inter', 'Montserrat', system-ui, -apple-system, sans-serif"
+        font-size="18" font-weight="400" fill="#8B92A5"
+        letter-spacing="2">lilisaura</text>
+</svg>

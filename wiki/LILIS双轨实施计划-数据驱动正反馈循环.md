@@ -50,7 +50,7 @@ source: "[[态势感知系统-OODA循环与经验积累]], [[AI搜索对传统�
 | 轨道 | 行动 | 产出 | 预算 |
 |------|------|------|------|
 | **Alibaba** | 压缩 P4P 至 $10/天<br>补充 Listing 结构化属性<br>维持信保 2单/周 | 15 个 Listing 结构化<br>星等级 ≥ 3.5 | $900/月 |
-| **独立站** | Shopify 搭建<br>UCP 合规 Catalog<br>Google Merchant Center Feed<br>Pinterest Business + 10 篇首轮内容 | 独立站上线<br>Catalog 结构化<br>Pinterest 账号活跃 | $300-500/月 |
+| **独立站** | 独立站搭建<br>UCP 合规 Catalog<br>Google Merchant Center Feed<br>Pinterest Business + 10 篇首轮内容 | 独立站上线<br>Catalog 结构化<br>Pinterest 账号活跃 | $300-500/月 |
 | **数据** | Ontology 四核心 Object Types<br>Python 数据管道（Alibaba→独立站）<br>GA4 + 独立站 Analytics 打通 | 统一数据结构<br>实时数据流 | $0（自建） |
 | **决策** | 首个自动化流程：P4P 出价异常告警<br>每周人工数据复盘（2h） | 态势感知 v0.1 | — |
 
@@ -60,7 +60,7 @@ source: "[[态势感知系统-OODA循环与经验积累]], [[AI搜索对传统�
 |-----|---------|--------|
 | Alibaba 信保订单 | 不详 | ≥ 8单/月 |
 | Alibaba 星等级 | 四维均零 | > 3.0 |
-| Shopify 独立站 | 无 | 上线 + 15 SKU |
+| 独立站 | 无 | 上线 + 15 SKU |
 | Pinterest 内容 | 无 | 10 篇 + 100 保存 |
 | AI 代理流量 | 无 | GA4 可检测到首次 AI referrer |
 
@@ -229,7 +229,7 @@ A: 这正是反馈循环的价值。Q4 的 Google Ads / SEO 数据会告诉你�
 A: Phase 1-2 手动完全可行（每周 2h 数据复盘）。自动化是在 Phase 3（≥ 5 条高置信规则时）才逐步引入。小团队的优势恰恰是 OODA 循环链路短——从「看到数据」到「做决定」不需要跨部门审批。
 
 **Q: 这个计划的 Budget 估算靠谱吗？**
-A: 独立站 Shopify 基础版 $29/月，Google Ads 测试预算 $200/月，Pinterest 免费。Alibaba P4P $10/天已验证可行。数据技术自建（Python + Streamlit 免费）。实际月支出可能低于估算——估算取了安全上界。
+A: 独立站 独立站 基础版 $29/月，Google Ads 测试预算 $200/月，Pinterest 免费。Alibaba P4P $10/天已验证可行。数据技术自建（Python + Streamlit 免费）。实际月支出可能低于估算——估算取了安全上界。
 
 ## 相关链接
 - [[态势感知系统-OODA循环与经验积累]] — OODA 理论基础

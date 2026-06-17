@@ -89,7 +89,7 @@ Widget 生态：Core Display（Object Table/List/View/Property List/Links）、V
 
 **Phase 2 — 中期优化**：图关系可视化（产品→关键词→询盘→订单关联图谱）、P4P自动预警（基于规则）。
 
-**Phase 3 — 高级能力**：ML Pipeline（询盘分类/P4P ROI预测）、跨平台Dashboard（Alibaba+Shopify）。
+**Phase 3 — 高级能力**：ML Pipeline（询盘分类/P4P ROI预测）、跨平台Dashboard（Alibaba+独立站）。
 
 ## 常见问题
 

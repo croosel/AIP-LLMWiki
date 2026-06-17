@@ -1,12 +1,13 @@
 ---
-tags: [LILIS, 品牌手册, 定位, 合规, 季节日历]
+tags: [LILIS, 品牌手册, 定位, 合规, 季节日历, 视觉识别]
 created: 2026-05-20
+updated: 2026-06-13
 source: "[[LILIS_Brand_Manual]]"
 ---
 # LILIS 品牌手册
 
 ## 定义
-LILIS 品牌 2026 版官方手册，涵盖品牌定位、产品架构、目标市场、买家画像、价值主张、产品标准、合规要求和季节日历。
+LILIS 品牌 2026 版官方手册，涵盖品牌定位、产品架构、目标市场、买家画像、价值主张、视觉识别、产品标准、合规要求和季节日历。
 
 ## 核心属性
 | 属性 | 值 |
@@ -53,6 +54,23 @@ LILIS 品牌 2026 版官方手册，涵盖品牌定位、产品架构、目标�
 ## 外贸应用
 > 参见 [[标题优化黄金公式]] · [[商品卖点]] · [[实战避坑指南]]
 
+### 视觉识别（2026-06-13 新增）
+
+> 详细 Logo 规范、配色代码、字体系统和多尺寸资产清单详见 [[LILIS品牌视觉识别]]。
+
+| 属性 | 值 |
+|------|-----|
+| Logo 风格 | 现代几何 — 两个交叠 45° 旋转菱形 |
+| 主品牌色 | Burnt Orange `#E8530E` |
+| 深色主色 | Dark Navy `#1A1A2E` |
+| 标题字体 | Inter 800 |
+| 正文字体 | Open Sans 400 |
+| 品牌名排版 | 永远全大写 "LILIS"，letter-spacing: 4px |
+| 副品牌名 | "lilisaura" 全小写，Inter 400 |
+| Logo 变体 | Light（浅色背景）+ Dark（深色背景）|
+| 资产格式 | SVG 矢量 + 28 张多尺寸 PNG（含 favicon/app/导航/banner）|
+| 资产位置 | `raw/logo_assets/` |
+
 ### 标题规则
 - **结构**: `LILIS + [件数] + [主题/颜色] + [核心组件] + [适用场景] + [差异化标签]`
 - **示例**: `LILIS 150PCS Pink Princess Balloon Garland Kit with Crown & Sash for Girls Birthday Party Decorations - US Warehouse Fast Ship`
@@ -85,6 +103,7 @@ A: 必须。所有产品标题必须以「LILIS」开头的品牌前缀，这是
 A: DE/FR/IT/ES 市场的 Wedding Planners 和 Hotels 高度重视环保合规（REACH/RoHS），认证是准入门槛。
 
 ## 相关链接
+- [[LILIS品牌视觉识别]] — Logo 设计与品牌配色规范（2026-06-13 新增）
 - [[LILIS-婚庆派对用品]]
 - [[标题优化黄金公式]]
 - [[商品卖点]]
@@ -95,3 +114,4 @@ A: DE/FR/IT/ES 市场的 Wedding Planners 和 Hotels 高度重视环保合规（
 - [[独立站信息架构]]
 - [[独立站网页设计专案]]
 - [[独立站设计系统]]
+- [[lilisaura.com建站进度追踪]]

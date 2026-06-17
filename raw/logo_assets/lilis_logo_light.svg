@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Icon: Two interlocking diamonds -->
+  <g>
+    <!-- Orange diamond (behind, left) -->
+    <rect x="-35" y="-35" width="70" height="70" rx="3" fill="#E8530E"
+          transform="translate(185, 72) rotate(45)"/>
+    <!-- Navy diamond (front, right) -->
+    <rect x="-35" y="-35" width="70" height="70" rx="3" fill="#1A1A2E"
+          transform="translate(215, 72) rotate(45)"/>
+  </g>
+
+  <!-- Brand name: LILIS -->
+  <text x="200" y="185" text-anchor="middle"
+        font-family="'Inter', 'Montserrat', 'Poppins', system-ui, -apple-system, sans-serif"
+        font-size="56" font-weight="800" fill="#1A1A2E"
+        letter-spacing="4">LILIS</text>
+
+  <!-- Orange accent dots on the "I" letters (exact measured positions) -->
+  <circle cx="170" cy="122" r="5" fill="#E8530E"/>
+  <circle cx="225" cy="122" r="5" fill="#E8530E"/>
+
+  <!-- Sub-brand: lilisaura -->
+  <text x="200" y="218" text-anchor="middle"
+        font-family="'Inter', 'Montserrat', system-ui, -apple-system, sans-serif"
+        font-size="18" font-weight="400" fill="#9CA3AF"
+        letter-spacing="2">lilisaura</text>
+</svg>

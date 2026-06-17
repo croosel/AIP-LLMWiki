@@ -29,7 +29,7 @@ source: "Shopify Q1 2026 Earnings, Alibaba Accio Launch, Mirakl B2B AI Trends 20
 | Catalog 结构化 AI 搜索 | 普通 AI 搜索转化率的 **2 倍** | 数据质量直接决定 AI 可见度 |
 | Q1 总 GMV | 连续两季度突破 **$1000 亿** | AI 流量是核心增长引擎 |
 
-**关键洞察**：Shopify 的 AI 流量转化率是传统搜索的 2 倍——不是因为 AI 更聪明，是因为 AI 代理帮买家做了筛选和对比，送到买家面前的已经是经过一轮匹配的结果。
+**关键洞察**：独立站 的 AI 流量转化率是传统搜索的 2 倍——不是因为 AI 更聪明，是因为 AI 代理帮买家做了筛选和对比，送到买家面前的已经是经过一轮匹配的结果。
 
 ### Universal Commerce Protocol (UCP) — 2026年1月发布
 
@@ -46,7 +46,7 @@ UCP 的核心能力:
   Amazon · Meta · Microsoft · Salesforce · Stripe
 ```
 
-**这意味着什么**：ChatGPT、Gemini、Claude、Perplexity 的 AI 代理可以直接从你的 Shopify 独立站发现产品、比价、下单——不需要买家打开任何网站。
+**这意味着什么**：ChatGPT、Gemini、Claude、Perplexity 的 AI 代理可以直接从你的 独立站发现产品、比价、下单——不需要买家打开任何网站。
 
 ### Alibaba Accio — 2024年11月上线
 
@@ -169,7 +169,7 @@ Accio 路线:
 
 ```
 Step 1: 结构化产品数据（现在就要做）
-  ├─ Shopify: 完整属性（材料/颜色/尺寸/认证/MOQ/交期/场景标签）
+  ├─ 独立站: 完整属性（材料/颜色/尺寸/认证/MOQ/交期/场景标签）
   ├─ Alibaba: 补充结构化属性（不要只写标题+描述）
   └─ Google Merchant Center: 提交 Feed
 
@@ -185,7 +185,7 @@ Step 3: 构建品牌内容资产（高频做）
 
 Step 4: 监控 AI 代理流量（持续做）
   ├─ GA4: 检查 referrer 来源（ChatGPT / Gemini / Perplexity）
-  ├─ Shopify Analytics: AI 渠道订单量
+  ├─ 独立站 Analytics: AI 渠道订单量
   └─ Alibaba 后台: Accio 流量占比
 ```
 

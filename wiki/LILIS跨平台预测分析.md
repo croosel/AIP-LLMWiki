@@ -6,7 +6,7 @@ tags:
   - Palantir
   - Sense-Reason-Act
   - Amazon
-  - Shopify
+  - 独立站
 created: 2026-05-20
 source: "[[LILIS_Cross_Platform_Predictive_Analysis]]"
 ---
@@ -15,7 +15,7 @@ source: "[[LILIS_Cross_Platform_Predictive_Analysis]]"
 
 ## 定义
 
-LILIS 跨平台预测分析基于 Palantir AIP 的 "[[Sense-Reason-Act架构|Sense → Reason → Act]]" 范式，对 Alibaba / Amazon / Shopify / 1688 四平台做统一的信号采集、需求预测和行动规划。覆盖 2026-2035 年市场趋势，聚焦婚庆/派对装饰用品赛道。
+LILIS 跨平台预测分析基于 Palantir AIP 的 "[[Sense-Reason-Act架构|Sense → Reason → Act]]" 范式，对 Alibaba / Amazon / 独立站 / 1688 四平台做统一的信号采集、需求预测和行动规划。覆盖 2026-2035 年市场趋势，聚焦婚庆/派对装饰用品赛道。
 
 ## 核心属性
 
@@ -76,7 +76,7 @@ LILIS 是跨品类（花+气球+灯光+支架+布艺）的一站式品牌，这�
 - FBA 轻小件 + 自发货大件
 - Sponsored Products 自动 $10/天
 
-**P1: Shopify (Q4 2026)**:
+**P1: 独立站 (Q4 2026)**:
 - 注册 LILISdecor.com
 - B2B 批发价格分层 (Tier 1/2/3)
 - Klaviyo 邮件营销自动化
@@ -89,7 +89,7 @@ LILIS 是跨品类（花+气球+灯光+支架+布艺）的一站式品牌，这�
 
 ### 跨平台季节性行动日历
 
-| 月份 | Alibaba | Amazon | Shopify |
+| 月份 | Alibaba | Amazon | 独立站 |
 |------|---------|--------|---------|
 | 1-2 月 | 情人节备货 | 情人节 Listing | — |
 | 3 月 | 新贸节大促 P4P+30% | 春季促销 | 网站建设 |
@@ -102,7 +102,7 @@ LILIS 是跨品类（花+气球+灯光+支架+布艺）的一站式品牌，这�
 
 ### 财务预测
 
-| 年份 | Alibaba GMV | Amazon GMV | Shopify GMV | 总 GMV | 净利润 (35%) |
+| 年份 | Alibaba GMV | Amazon GMV | 独立站 GMV | 总 GMV | 净利润 (35%) |
 |------|-----------|-----------|------------|--------|------------|
 | 2026 H2 | $12,000 | $7,500 | $1,100 | $20,600 | $4,900 |
 | 2027 | $30,000 | $30,000 | $17,500 | $77,500 | $19,950 |
@@ -121,8 +121,8 @@ LILIS 是跨品类（花+气球+灯光+支架+布艺）的一站式品牌，这�
 **Q: 为什么不先做 Amazon 而先做 Alibaba？**
 A: Alibaba 已有 354 个产品和 31.47% 复购率的基础，是 LILIS 的根据地。Amazon 从零开始需要品牌备案和 FBA 物流，Q3 是最早可行时间。
 
-**Q: Shopify B2B 和 Alibaba B2B 有什么区别？**
-A: Shopify 是品牌自主渠道，不交平台佣金，可建立买家邮件列表。Alibaba 是流量入口。两者互补。
+**Q: 独立站 B2B 和 Alibaba B2B 有什么区别？**
+A: 独立站 是品牌自主渠道，不交平台佣金，可建立买家邮件列表。Alibaba 是流量入口。两者互补。
 
 ## 相关链接
 

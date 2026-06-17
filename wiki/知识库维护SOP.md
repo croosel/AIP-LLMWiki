@@ -5,21 +5,21 @@ tags:
   - 工作流
   - 元页面
 created: 2026-06-08
-source: "QoderWork Agent + Human Editor 协作制定"
+source: "Agent + Human Editor 协作制定"
 ---
 
 # 知识库维护 SOP
 
 > 本文档定义了 AIP-LLMWiki 知识库的标准维护操作流程。  
 > 维护工作按**日度 / 周度 / 月度**三级节奏执行，覆盖链接健康、内容质量、标签合规、结构优化等维度。  
-> 主要执行者为 QoderWork Agent（维护检查）和 LLM Wiki Agent（内容修复），审批者为 Human Editor。  
+> 主要执行者为 Agent（维护检查）和 LLM Wiki Agent（内容修复），审批者为 Human Editor。  
 > 本 SOP 与 [[Agent工作流协议]] 和 [[Agent-Handoff协议]] 配套使用。
 
 ---
 
 ## 一、日常维护（Daily）
 
-**执行者**: QoderWork Agent（自动）或 Human Editor（手动）  
+**执行者**: Agent（自动）或 Human Editor（手动）  
 **触发时机**: 每日首次操作知识库时，或任何 Agent 完成批量修改后  
 **预计耗时**: 5-10 分钟
 
@@ -80,7 +80,7 @@ source: "QoderWork Agent + Human Editor 协作制定"
 
 ## 二、周度复盘（Weekly）
 
-**执行者**: QoderWork Agent 主导，结果提交 Human Editor 审阅  
+**执行者**: Agent 主导，结果提交 Human Editor 审阅  
 **触发时机**: 每周日（与 [[Weekly_Review_协议]] 同步）  
 **预计耗时**: 15-30 分钟
 
@@ -172,7 +172,7 @@ source: "QoderWork Agent + Human Editor 协作制定"
 
 ## 三、月度审计（Monthly）
 
-**执行者**: QoderWork Agent 生成报告，Human Editor 审批  
+**执行者**: Agent 生成报告，Human Editor 审批  
 **触发时机**: 每月第一个周日  
 **预计耗时**: 1-2 小时
 
@@ -301,7 +301,7 @@ source: "QoderWork Agent + Human Editor 协作制定"
     │              添加双向链接
     ▼
 ┌─────────────┐
-│ 3. QoderWork    │ ── 执行质量检查清单
+│ 3. Agent    │ ── 执行质量检查清单
 │    Agent        │    验证链接、frontmatter、标签
 └─────────────┘    更新反向链接
     │
@@ -343,7 +343,7 @@ source: "QoderWork Agent + Human Editor 协作制定"
 
 #### 阶段 3：质量检查
 
-**执行者**: QoderWork Agent  
+**执行者**: Agent  
 **操作**:
 1. 执行 [[Agent工作流协议]] 第六章质量检查清单
 2. 全量断链扫描
@@ -459,7 +459,7 @@ grep -oh '\[\[[^]]*\]\]' wiki/*.md | sort | uniq -c | sort -rn
 
 | 日期 | 版本 | 变更说明 | 操作者 |
 |------|------|----------|--------|
-| 2026-06-08 | v1.0 | 初始版本，定义日度/周度/月度维护流程 | QoderWork Agent + Human Editor |
+| 2026-06-08 | v1.0 | 初始版本，定义日度/周度/月度维护流程 | Agent + Human Editor |
 
 ---
 
