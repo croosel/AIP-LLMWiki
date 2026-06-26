@@ -254,11 +254,93 @@ curl -s -k -X POST https://open-api.alibaba.com/sync \
 
 详见 [[ICBU_工作流与Skill架构]]。
 
+## 9. 只读数据提取：product.get 响应字段映射
+
+通过 `alibaba.icbu.product.get` 获取产品详情时，响应 JSON 的字段路径与直觉不同。以下是经过验证的字段映射（2026-06-26 确认）：
+
+| 需要的数据 | JSON 路径 | 备注 |
+|-----------|-----------|------|
+| 产品标题 | `product.subject` | 直接取值 |
+| 主图 URL | `product.main_image.images.string` | **不是** `product.image.images.image` |
+| 价格 | `product.wholesale_trade.price` | 字符串，如 "1.08~1.98" |
+| 价格单位 | `product.wholesale_trade.unit_type` | 如 "Piece"、"Set" |
+| MOQ（近似） | `product.wholesale_trade.deliver_periods.deliver_period[0].quantity` | 无直接 MOQ 字段 |
+| 产品链接 | `product.pc_detail_url` | PC 端详情 URL |
+| SKU 阶梯价 | `product.product_sku.skus.sku_definition[].bulk_discount_prices` | 可选 |
+| 产品分组 | `product.product_group.group_name` | 如 "Premium Floral Art" |
+
+**重要**: ICBU API 没有完整的响应字段文档。获取新产品数据时，务必先 dump 完整 JSON 响应，递归遍历所有 key 确认字段路径，不要猜测。
+
+**MOQ 说明**: product.get 响应中没有名为 `moq` 或 `minOrderQuantity` 的直接字段。最接近的代理是 `deliver_periods[0].quantity`（交期对应的起始数量）。RTS（Ready to Ship）产品默认 MOQ=1。
+
+## 10. 卖家后台内部 API（定向征品）
+
+> ⚠️ 以下 API 属于 ICBU 卖家后台内部接口（`hz-productposting.alibaba.com`），**不在 Open Platform API 范围内**，只能通过浏览器自动化访问。
+
+### 10.1 访问前提
+
+- 需要已登录的浏览器 session（cookie 认证）
+- 所有请求需携带 `ctoken` 和 `_tb_token_` 参数
+- 页面 URL：`https://hz-productposting.alibaba.com/product/collect_product.htm?subMenuCode=product_direct_collect_manage`
+
+### 10.2 定向征品 API 端点
+
+| 端点 | 方法 | 用途 | 关键参数 |
+|------|------|------|---------|
+| `get_collect_topic.do` | GET | **获取单个主题详情** | `collect_topic_id={id}` |
+| `query_matched_recommend_topic.do` | GET | 推荐主题列表 | `orderByName=score&pageSize=48&page=1&businessType=HOT_PRODUCT&strategyTag=ICBU_SHORT` |
+| `get_topic_static_config.do` | GET | 静态配置（地区+UI文案） | 无或 `topicId={id}` |
+| `get_valid_cate.do` | GET | 有效分类列表 | — |
+| `topic_match_product.do` | GET | 主题匹配产品 | `topicId={id}&page=1` |
+| `hot_topic_similar_product.do` | GET | 热门相似产品 | `topicId={id}` |
+| `topic/feedback/get.do` | GET | 主题反馈 | `topicId={id}` |
+
+### 10.3 get_collect_topic.do 返回字段
+
+核心字段（以 topicId=16873279 为例）：
+
+| 字段 | 含义 | 示例值 |
+|------|------|-------|
+| `title` | 主题名称 | 橡胶材质圆形成簇装派对气球 |
+| `categoryId` | 关联类目 ID | 201600204 |
+| `categoryPath` | 类目路径 | 家居园艺>>庆典派对用品>>派对气球 |
+| `priceRange` | 价格上限 | <=$0.88 |
+| `recommendCountryList` | 主推国家 | ["菲律宾"] |
+| `propertyMap` | 属性要求 | {"适用节日": ["Birthday"]} |
+| `minOrdQtyFrom/To` | MOQ 范围 | 1–50 |
+| `ruleDTO.needPicMatch` | 首图匹配要求 | Y |
+| `ruleDTO.coreCapacityList` | 服务能力要求 | ["trade_prod", "support_delivery_guarantee"] |
+| `ruleDTO.attrDTOList` | 必须商品属性 | Material=Rubber, Occasion=Birthday |
+| `ruleDTO.minLadderPeriod` | 最低交期（天） | 9 |
+| `strategyTag` | 策略标签 | ICBU_SHORT（新品加速） |
+| `sampleImgUrl` | 主题参考图 | //sc02.alicdn.com/kf/He77f46a...jpg |
+
+### 10.4 浏览器自动化注意事项
+
+- **fetch() 在 SPA 页面可能返回 undefined**：改用 `XMLHttpRequest` + `Promise` 包裹
+- **ctoken / _tb_token_ 获取**：从页面 URL 参数或 cookie 中提取
+- **网络请求分析**：`read_network_requests` 工具可暴露页面所有内部 API 调用，是发现端点的最快方式
+
+### 10.5 与 Open Platform API 的关系
+
+| 能力 | Open Platform API | 卖家后台内部 API |
+|------|-------------------|-----------------|
+| 产品 CRUD | ✅ schema.add/update | ❌ |
+| 图片上传 | ✅ photobank.upload | ❌ |
+| 分类查询 | ✅ category.get.new | ❌ |
+| 定向征品主题 | ❌ | ✅ get_collect_topic.do |
+| 征品推荐列表 | ❌ | ✅ query_matched_recommend_topic.do |
+| 主题匹配产品 | ❌ | ✅ topic_match_product.do |
+
+> 详见 [[EXP-ICBU定向征品主题ID查询-20260626]]
+
 ## 相关链接
 
 - [[API_Direct_Access_Investigation_20260524]] — Accio MCP 路径的封堵记录（本文修正了其结论）
 - [[实战避坑指南]] — Alibaba 运营避坑
 - [[ICBU_工作流与Skill架构]] — 自动化工作流和 Skill 设计
-- [[EXP-ICBU开放平台API产品管理-20260614]] — 完整经验记录（含所有踩坑记录）
+- [[EXP-ICBU开放平台API产品管理-20260614]] — 写操作完整经验记录
+- [[EXP-优品清单API批量提取-20260626]] — 只读提取经验记录（含字段映射发现过程）
+- [[EXP-ICBU定向征品主题ID查询-20260626]] — 定向征品主题 ID 查询经验（内部 API 发现过程）
 - [[AIP跨境运营方法论-四阶段实施]]
 - [[主页]]
