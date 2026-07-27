@@ -1,0 +1,1 @@
+{"name":"flowzen-site","version":"1.0.0","description":"FlowZen Desk Meditation Station — DTC Landing Page","private":true,"scripts":{"dev":"npx serve .","start":"npx serve ."}}
